@@ -32,12 +32,16 @@ export function MultiStepFormNav({ currentStep = 1 }: { currentStep: number }) {
         {steps.map((step) => (
           <li
             key={step.name}
-            className="md:flex-1"
+            className={`md:flex-1 ${
+              step.id >= currentStep ? "pointer-events-none" : ""
+            }`}
             aria-current={step.id === currentStep ? "step" : undefined}
             aria-label={`Step ${step.id}`}
           >
             <Link
               href={`/products/add/${step.id}`}
+              aria-disabled={step.id > currentStep ? "true" : "false"}
+              tabIndex={step.id > currentStep ? -1 : undefined}
               className={`group flex flex-col border-l-4 py-2 pl-4 ${
                 step.id < currentStep
                   ? "border-primary"
